@@ -1,11 +1,36 @@
 import { gsap } from "gsap";
 import { useEffect, useRef } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 function Pricing() {
   const elementsRef = useRef([]);
+  const headingRef = useRef();
+
+  useGSAP(() => {
+    gsap.fromTo(
+      headingRef.current,
+      {
+        opacity: 0,
+        x: 500,
+      },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.2,
+        scrollTrigger: {
+          trigger: headingRef.current,
+          // markers: true,
+          top: "top 90%",
+          end: "top 50%",
+          scrub: true,
+        },
+      }
+    );
+  }, []);
+
   useEffect(() => {
     gsap.fromTo(
       elementsRef.current,
@@ -31,10 +56,13 @@ function Pricing() {
   return (
     <>
       {/* <!-- component --> */}
-      <section className="bg-gray-800 py-12 my-8">
+      <section className="bg-gray-800 py-12 my-8 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className=" uppercase text-4xl font-extrabold text-white ">
+            <h2
+              ref={headingRef}
+              className=" uppercase text-4xl font-extrabold text-white "
+            >
               Pricing Plans
             </h2>
           </div>
