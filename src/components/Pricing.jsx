@@ -20,7 +20,6 @@ function Pricing() {
         scale: 1,
         scrollTrigger: {
           trigger: elementsRef.current,
-          markers: true,
           start: "top 80%",
           end: "top 50%",
           scrub: true,
