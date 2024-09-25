@@ -76,8 +76,8 @@ function OurServices() {
         {
           scale: 1,
           rotate: 0,
-          duration: 0.6,
-          stagger: 0.3,
+          duration:0.3,
+          stagger: 0.15,
         }
       );
     });
