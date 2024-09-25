@@ -8,6 +8,9 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const elementsRef = useRef([]);
   const logoRef = useRef(null);
+  const mobileMenuRef = useRef([]);
+  const mobileMenuTimeline = gsap.timeline({ paused: true });
+
   useGSAP(() => {
     gsap.from(logoRef.current, {
       x: -150,
@@ -29,10 +32,39 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
+  useEffect(() => {
+    if (isOpen) {
+      mobileMenuTimeline.fromTo(
+        mobileMenuRef.current,
+        {
+          x: -100,
+          opacity: 0,
+        },
+        {
+          x: 20,
+          opacity: 1,
+          stagger: 0.2,
+          ease: "power4.inOut",
+        }
+      );
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (isOpen) {
+      mobileMenuTimeline.play();
+    } else {
+      mobileMenuTimeline.reverse();
+    }
+  }, [isOpen]);
+
   return (
     <nav className="bg-gray-900 text-white shadow-md w-full">
       <div className="container mx-auto px-4 lg:px-6 py-5 flex justify-between items-center">
-        <div ref={logoRef} className="text-2xl md:text-3xl font-extrabold tracking-widest">
+        <div
+          ref={logoRef}
+          className="text-2xl md:text-3xl font-extrabold tracking-widest"
+        >
           <Link to="/">TaxiService</Link>
         </div>
 
@@ -121,66 +153,72 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden bg-gray-800 py-4">
           <NavLink
+            ref={(mobileElem) => (mobileMenuRef.current[0] = mobileElem)}
             to="/"
             className={({ isActive }) =>
               `${
                 isActive ? "text-yellow-400" : "text-white"
-              } hover:text-yellow-400 hover:underline font-semibold block py-2 px-4 text-sm hover:bg-gray-700 `
+              } hover:text-yellow-400 hover:underline font-semibold block py-2 px-4 text-base hover:bg-gray-700 `
             }
           >
             Home
           </NavLink>
 
           <NavLink
+            ref={(mobileElem) => (mobileMenuRef.current[1] = mobileElem)}
             to="/cars"
             className={({ isActive }) =>
               `${
                 isActive ? "text-yellow-400" : "text-white"
-              } hover:text-yellow-400 hover:underline font-semibold block py-2 px-4 text-sm hover:bg-gray-700 `
+              } hover:text-yellow-400 hover:underline font-semibold block py-2 px-4 text-base hover:bg-gray-700 `
             }
           >
             Cars
           </NavLink>
 
           <NavLink
+            ref={(mobileElem) => (mobileMenuRef.current[2] = mobileElem)}
             to="/drivers"
             className={({ isActive }) =>
               `${
                 isActive ? "text-yellow-400" : "text-white"
-              } hover:text-yellow-400 hover:underline font-semibold block py-2 px-4 text-sm hover:bg-gray-700 `
+              } hover:text-yellow-400 hover:underline font-semibold block py-2 px-4 text-base hover:bg-gray-700 `
             }
           >
             Drivers
           </NavLink>
 
           <NavLink
+            ref={(mobileElem) => (mobileMenuRef.current[3] = mobileElem)}
             to="/pricing"
             className={({ isActive }) =>
               `${
                 isActive ? "text-yellow-400" : "text-white"
-              } hover:text-yellow-400 hover:underline font-semibold block py-2 px-4 text-sm hover:bg-gray-700 `
+              } hover:text-yellow-400 hover:underline font-semibold block py-2 px-4 text-base hover:bg-gray-700 `
             }
           >
             Pricing
           </NavLink>
 
           <NavLink
+            ref={(mobileElem) => (mobileMenuRef.current[4] = mobileElem)}
             to="/workingHours"
             className={({ isActive }) =>
               `${
                 isActive ? "text-yellow-400" : "text-white"
-              } hover:text-yellow-400 hover:underline font-semibold block py-2 px-4 text-sm hover:bg-gray-700 `
+              } hover:text-yellow-400 hover:underline font-semibold block py-2 px-4 text-base hover:bg-gray-700 `
             }
           >
             Working Hours
           </NavLink>
 
           <NavLink
+            ref={(mobileElem) => (mobileMenuRef.current[5] = mobileElem)}
             to="/contact"
             className={({ isActive }) =>
               `${
                 isActive ? "text-yellow-400" : "text-white"
-              } hover:text-yellow-400 hover:underline font-semibold block py-2 px-4 text-sm hover:bg-gray-700 `
+              } hover:text-yellow-400 hover:underline font-semibold block py-2 px-4 text-base hover:bg-gray-700 `
             }
           >
             Contact
