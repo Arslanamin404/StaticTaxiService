@@ -1,8 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
+import { IoMenu } from "react-icons/io5";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const elementsRef = useRef([]);
+  const logoRef = useRef(null);
+  useGSAP(() => {
+    gsap.from(logoRef.current, {
+      x: -150,
+      duration: 0.6,
+      opacity: 0,
+    });
+  });
+
+  useEffect(() => {
+    elementsRef.current = gsap.timeline().from(elementsRef.current, {
+      opacity: 0,
+      y: -20,
+      duration: 0.25,
+      stagger: 0.14,
+    });
+  }, []);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -11,13 +32,14 @@ const Navbar = () => {
   return (
     <nav className="bg-gray-900 text-white shadow-md w-full">
       <div className="container mx-auto px-4 lg:px-6 py-5 flex justify-between items-center">
-        <div className="text-2xl md:text-3xl font-extrabold tracking-widest">
+        <div ref={logoRef} className="text-2xl md:text-3xl font-extrabold tracking-widest">
           <Link to="/">TaxiService</Link>
         </div>
 
         {/* Desktop Links */}
         <div className="hidden md:flex space-x-8 text-base">
           <NavLink
+            ref={(elem) => (elementsRef.current[0] = elem)}
             to="/"
             className={({ isActive }) =>
               `${
@@ -29,6 +51,7 @@ const Navbar = () => {
           </NavLink>
 
           <NavLink
+            ref={(elem) => (elementsRef.current[1] = elem)}
             to="/cars"
             className={({ isActive }) =>
               `${
@@ -40,6 +63,7 @@ const Navbar = () => {
           </NavLink>
 
           <NavLink
+            ref={(elem) => (elementsRef.current[2] = elem)}
             to="/drivers"
             className={({ isActive }) =>
               `${
@@ -51,6 +75,7 @@ const Navbar = () => {
           </NavLink>
 
           <NavLink
+            ref={(elem) => (elementsRef.current[3] = elem)}
             to="/Pricing"
             className={({ isActive }) =>
               `${
@@ -60,8 +85,9 @@ const Navbar = () => {
           >
             Pricing
           </NavLink>
-     
+
           <NavLink
+            ref={(elem) => (elementsRef.current[4] = elem)}
             to="/workingHours"
             className={({ isActive }) =>
               `${
@@ -71,8 +97,9 @@ const Navbar = () => {
           >
             Working Hours
           </NavLink>
-     
+
           <NavLink
+            ref={(elem) => (elementsRef.current[5] = elem)}
             to="/contact"
             className={({ isActive }) =>
               `${
@@ -80,29 +107,14 @@ const Navbar = () => {
               } hover:text-yellow-400 hover:underline font-semibold `
             }
           >
-           Contact
+            Contact
           </NavLink>
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center">
-          <button onClick={toggleMenu} className="focus:outline-none">
-            <svg
-              className="w-6 h-6 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
-              />
-            </svg>
-          </button>
-        </div>
+        <button className="md:hidden" onClick={toggleMenu}>
+          <IoMenu className="text-3xl" />
+        </button>
       </div>
 
       {/* Mobile Links */}
@@ -129,7 +141,7 @@ const Navbar = () => {
           >
             Cars
           </NavLink>
-          
+
           <NavLink
             to="/drivers"
             className={({ isActive }) =>
@@ -140,7 +152,7 @@ const Navbar = () => {
           >
             Drivers
           </NavLink>
-          
+
           <NavLink
             to="/pricing"
             className={({ isActive }) =>
@@ -151,7 +163,7 @@ const Navbar = () => {
           >
             Pricing
           </NavLink>
-          
+
           <NavLink
             to="/workingHours"
             className={({ isActive }) =>
