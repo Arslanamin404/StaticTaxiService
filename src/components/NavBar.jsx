@@ -153,6 +153,7 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden bg-gray-800 py-4">
           <NavLink
+            onClick={toggleMenu}
             ref={(mobileElem) => (mobileMenuRef.current[0] = mobileElem)}
             to="/"
             className={({ isActive }) =>
@@ -165,6 +166,7 @@ const Navbar = () => {
           </NavLink>
 
           <NavLink
+            onClick={toggleMenu}
             ref={(mobileElem) => (mobileMenuRef.current[1] = mobileElem)}
             to="/cars"
             className={({ isActive }) =>
@@ -177,6 +179,7 @@ const Navbar = () => {
           </NavLink>
 
           <NavLink
+            onClick={toggleMenu}
             ref={(mobileElem) => (mobileMenuRef.current[2] = mobileElem)}
             to="/drivers"
             className={({ isActive }) =>
@@ -189,6 +192,7 @@ const Navbar = () => {
           </NavLink>
 
           <NavLink
+            onClick={toggleMenu}
             ref={(mobileElem) => (mobileMenuRef.current[3] = mobileElem)}
             to="/pricing"
             className={({ isActive }) =>
@@ -201,6 +205,7 @@ const Navbar = () => {
           </NavLink>
 
           <NavLink
+            onClick={toggleMenu}
             ref={(mobileElem) => (mobileMenuRef.current[4] = mobileElem)}
             to="/workingHours"
             className={({ isActive }) =>
@@ -213,6 +218,7 @@ const Navbar = () => {
           </NavLink>
 
           <NavLink
+            onClick={toggleMenu}
             ref={(mobileElem) => (mobileMenuRef.current[5] = mobileElem)}
             to="/contact"
             className={({ isActive }) =>
